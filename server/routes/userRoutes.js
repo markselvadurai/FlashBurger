@@ -13,7 +13,7 @@ router.route('/api/users')
 // get, update, and delete on id at this endpoint
 // checks for verification through the authCtrl
 router.route('/api/users/:id')
-    .get(authCtrl.requireSignin, userCtrl.read)
+    .get(userCtrl.read)
     .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.deleteUser);
 

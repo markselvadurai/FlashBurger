@@ -1,4 +1,7 @@
 import User from '../model/userModel.js'
+import jwt from 'jsonwebtoken'
+import { expressjwt } from 'express-jwt'
+import config from './../../config/config.js'
 
 //create a new user
 const create = async(req,res) => {
@@ -6,8 +9,16 @@ const create = async(req,res) => {
     console.log(req.body);
     try{
         await user.save();
+        const token = jwt.sign({_id : user._id}, config.jwtSecret);
+        res.cookie('t', token, {expire: new Date() + 9999, httpOnly: true, secure: process.env.NODE_ENV === 'production'});
         return res.status(200).json({
-            message: 'Successfully signed up'
+            message: 'Successfully signed up',
+            token,
+            user:{
+                _id : user._id,
+                username: user.username,
+                email: user.email
+            }
         });
     }catch (err){
         return res.status(400).json({

@@ -24,7 +24,7 @@ const signin = async (req,res) => {
 
         //if everything is good then create jwt token 
         const token = jwt.sign({_id : user._id}, config.jwtSecret);
-        res.cookie('t', token, {expire: new Date() + 9999});
+        res.cookie('t', token, {expire: new Date() + 9999, httpOnly: true, secure: process.env.NODE_ENV === 'production'});
         //return to the client the following
         return res.json({
             token,
@@ -70,5 +70,24 @@ const hasAuthorization = (req,res, next) =>{
     next();
 }
 
+const loggedIn = (req,res) => {
+    const token = req.cookies.t;
 
-export default { signin, signout, requireSignin, hasAuthorization } 
+    if (!token) {
+        return res.json({val: false})
+    }
+    try {
+        const decoded = jwt.verify(token, config.jwtSecret);
+        res.json({val: true,
+            user:{
+                _id: decoded,
+            }});
+    } catch (err) {
+        console.error(err);
+        console.log(token);
+        res.status(401).json({ errorMessage: "Unauthorized" });
+    }
+}
+
+
+export default { signin, signout, requireSignin, hasAuthorization, loggedIn } 

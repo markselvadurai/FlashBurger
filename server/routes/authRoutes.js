@@ -10,4 +10,6 @@ router.route('/auth/signin').post(authCtrl.signin);
 //execute the signout middleware when a get request is made to the endpoint
 router.route('/auth/signout').get(authCtrl.signout);
 
+router.route('/loggedIn').get(authCtrl.loggedIn);
+
 export default router;
