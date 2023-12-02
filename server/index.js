@@ -6,6 +6,8 @@ import compress from 'compression'
 import morgan from 'morgan'
 import authRoute from './routes/authRoutes.js'
 import cookieParser from 'cookie-parser'
+import productRoute from './routes/productRoutes.js'
+import cartRoute from './routes/cartRoutes.js'
 
 const app = express();
 app.use(cors({
@@ -19,8 +21,11 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(compress());
 
+app.use('/', cartRoute);
+app.use('/', productRoute);
 app.use('/', userCtrl);
 app.use('/', authRoute);
+
 
 //used to handle errors thrown by the expressJWT when validating JWT tokens
 app.use((err, req, res,next) =>{
