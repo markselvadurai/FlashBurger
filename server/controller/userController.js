@@ -2,6 +2,7 @@ import User from '../model/userModel.js'
 import jwt from 'jsonwebtoken'
 import { expressjwt } from 'express-jwt'
 import config from './../../config/config.js'
+import Cart from '../model/cartModel.js'
 
 //create a new user
 const create = async(req,res) => {
@@ -11,6 +12,8 @@ const create = async(req,res) => {
         await user.save();
         const token = jwt.sign({_id : user._id}, config.jwtSecret);
         res.cookie('t', token, {expire: new Date() + 9999, httpOnly: true, secure: process.env.NODE_ENV === 'production'});
+        //create a cart and link it to this user
+        const newCart = await Cart.create({owner: user.id});
         return res.status(200).json({
             message: 'Successfully signed up',
             token,
@@ -98,11 +101,13 @@ const update = async(req,res,) => {
 }
 
 //delete a single user
-const deleteUser = (req,res) =>{
+const deleteUser = async(req,res) =>{
     const {id} = req.params;
-    console.log(User);
+    console.log(req.profile);
     try{
-        User.deleteOne({_id : id});
+        const deleteUser = await User.findOneAndDelete({_id: id});
+        //delete cart aswell
+        await Cart.findOneAndDelete({owner: deleteUser._id});
         res.status(200).json({
             message: 'User with id: ' + id + ' deleted'
         });
