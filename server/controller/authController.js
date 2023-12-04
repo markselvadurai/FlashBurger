@@ -55,13 +55,20 @@ const signout = (req,res) => {
 const requireSignin = expressjwt({
     secret: config.jwtSecret,
     algorithms: ['HS256'],
-    userProperty: 'auth'
+    userProperty: 'auth',
+    getToken: (req) => {
+        if (req.cookies && req.cookies.t) {
+          return req.cookies.t;
+        }
+        return null;
+      },
 });
 
 //to ensure users can only update, delete their own profile
 const hasAuthorization = (req,res, next) =>{
     //ensure everything matches
     //req.auth is the user object that is available after user has been authenticated in the requireSignin middleware
+    console.log('hel')
     const auth = req.profile && req.auth && req.profile._id == req.auth._id;
     // if not display error
     if(!auth){

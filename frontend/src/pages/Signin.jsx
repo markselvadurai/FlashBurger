@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
     const {getLoggedIn} = useContext(AuthContext);
+    const {setToken} = useContext(AuthContext);
     const history = useNavigate();
     const {setUser} = useContext(AuthContext);
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
     async function login(e) {
         e.preventDefault();
 
@@ -22,6 +24,7 @@ const Signin = () => {
             const response = await axios.post("http://localhost:3000/auth/signin", registerData);
             console.log(response);
             setUser(response.data.user);
+            setToken(response.data.token)
 
             await getLoggedIn();
             history('/');

@@ -71,6 +71,7 @@ const read = async (req,res) =>{
 //update the user
 const update = async(req,res,) => {
     console.log('Update Running');
+    console.log(req.body);
     const {id} = req.params;
     try{
         const foundUser = await User.findById(id);
@@ -80,14 +81,15 @@ const update = async(req,res,) => {
             });
         }
         else{
-            foundUser.username = req.body.username;
-            foundUser.email = req.body.email;
-            foundUser.password = req.body.password;
+            if (req.body.username) foundUser.username = req.body.username;
+            if (req.body.email) foundUser.email = req.body.email;
+            if (req.body.password) foundUser.password = req.body.password;
+            if (req.body.country) foundUser.country = req.body.country;
+            if (req.body.city) foundUser.city = req.body.city;
+            if (req.body.postalCode) foundUser.postalCode = req.body.postalCode;
+            if (req.body.address) foundUser.address = req.body.address;
+            console.log(foundUser);
             foundUser.updated = Date.now();
-            foundUser.country = req.body.country;
-            foundUser.city = req.body.city;
-            foundUser.postalCode = req.body.postalCode;
-            foundUser.address = req.body.address;
             await foundUser.save();
             return res.status(200).json({
                 message: 'User updated successfully'
@@ -95,6 +97,7 @@ const update = async(req,res,) => {
         }
     }catch(err){
         res.status(400).json({
+            message: 'update catch err:',
             error: 'Error :' + err
         });
     }

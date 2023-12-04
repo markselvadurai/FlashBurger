@@ -15,7 +15,7 @@ function Signout() {
     }
 
     return (
-        <a href='' onClick={logOut} className="font-medium text-md  ">
+        <a href='' onClick={logOut} className="font-medium text-md">
             Log out
         </a>
     )

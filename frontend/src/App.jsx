@@ -6,6 +6,7 @@ import Signout from './components/Signout';
 import Signin from './pages/Signin';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
+import Cart from './pages/Cart';
 import axios from 'axios';
 import AuthContext, { AuthContextProvider } from './context/AuthContent';
 
@@ -40,6 +41,7 @@ function AppContent() {
               {/* <Route path="/" element={<Users />} /> */}
               <Route path="/profile" element={<Profile />} />
               <Route path="/signout" element={<Signout />} />
+              <Route path="/cart" element={<Cart />} />
             </>
           )}
         </Routes>

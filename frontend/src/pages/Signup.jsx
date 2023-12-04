@@ -1,12 +1,17 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContent';
 
 const Signup = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const history = useNavigate();
     const [email, setEmail] = useState("")
+    const {getLoggedIn} = useContext(AuthContext);
+
     async function login(e) {
         e.preventDefault();
 
@@ -18,6 +23,9 @@ const Signup = () => {
             };
 
             await axios.post("http://localhost:3000/api/users", registerData);
+            getLoggedIn();
+            history('/');
+
 
         } catch(err) {
             console.log(err);
@@ -38,7 +46,7 @@ const Signup = () => {
 	    	<label className="font-semibold text-xs mt-3">Password</label>
 	    	<input className="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
 
-	    	<button className="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700">Login</button>
+	    	<button className="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700">Sign up</button>
             
 	    </form>
     </div>
