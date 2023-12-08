@@ -8,6 +8,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState();
     
     useEffect(() => {
         setLoading(true);
