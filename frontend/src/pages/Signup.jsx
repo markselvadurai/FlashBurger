@@ -22,7 +22,7 @@ const Signup = () => {
                 password
             };
 
-            await axios.post("http://localhost:3000/api/users", registerData);
+            await axios.post("https://flashburgerapi.onrender.com/api/users", registerData);
             getLoggedIn();
             history('/');
 

@@ -10,7 +10,7 @@ const Cart = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:3000/api/users/${user._id}/cart`)
+        axios.get(`flashburgerapi.onrender.com/api/users/${user._id}/cart`)
         .then((response) => {
                 setCart(response.data[0][0]);
                 setLoading(false);

@@ -21,7 +21,7 @@ const Signin = () => {
                 password
             };
 
-            const response = await axios.post("http://localhost:3000/auth/signin", registerData);
+            const response = await axios.post("https://flashburgerapi.onrender.com/auth/signin", registerData);
             console.log(response);
             setUser(response.data.user);
             setToken(response.data.token)

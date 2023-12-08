@@ -16,7 +16,7 @@ const Profile = () => {
     const { getLoggedIn } = useContext(AuthContext);
 
     async function logOut() {
-        await axios.get("http://localhost:3000/auth/signout");
+        await axios.get("https://flashburgerapi.onrender.com/auth/signout");
         await getLoggedIn();
         history('/signin');
     }
@@ -25,7 +25,7 @@ const Profile = () => {
         e.preventDefault();
 
         try {
-            await axios.delete(`http://localhost:3000/api/users/${user._id}`);
+            await axios.delete(`https://flashburgerapi.onrender.com/api/users/${user._id}`);
             logOut();
         }
         catch (err) { console.log(err); }
@@ -43,7 +43,7 @@ const Profile = () => {
             username: username,
             password: password
         }
-        try { await axios.put(`http://localhost:3000/api/users/${user._id}`, body); }
+        try { await axios.put(`https://flashburgerapi.onrender.com/api/users/${user._id}`, body); }
         catch (err) { console.log(err); }
     }
 
