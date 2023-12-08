@@ -9,7 +9,7 @@ function Signout() {
     const {getLoggedIn} = useContext(AuthContext);
 
     async function logOut() {
-        await axios.get("http://localhost:3000/auth/signout");
+        await axios.get("https://flashburgerapi.onrender.com/auth/signout");
         await getLoggedIn();
         history('/signin');
     }

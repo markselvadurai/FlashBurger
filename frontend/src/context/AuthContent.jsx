@@ -9,11 +9,11 @@ function AuthContextProvider(props) {
     const [token, setToken] = useState();
 
     async function getLoggedIn() {
-        const loggedInRes = await axios.get("http://localhost:3000/loggedIn/");
+        const loggedInRes = await axios.get("https://flashburgerapi.onrender.com/loggedIn/");
         setLoggedIn(loggedInRes.data.val);
         
         // console.log(loggedInRes);
-        const newuser = await axios.get(`http://localhost:3000/api/users/${loggedInRes.data.user._id._id}`);
+        const newuser = await axios.get(`https://flashburgerapi.onrender.com/api/users/${loggedInRes.data.user._id._id}`);
         setUser(newuser.data);
         console.log(user);
         console.log(loggedIn);
