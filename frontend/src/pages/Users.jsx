@@ -9,11 +9,12 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    
     useEffect(() => {
         setLoading(true);
         axios.get('http://localhost:3000/api/users')
             .then((response) => {
-                // console.log(response.data);
+                console.log(response.data);
 
                 setUsers(response.data);
                 setLoading(false);

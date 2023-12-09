@@ -22,6 +22,11 @@ const ProductSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+
+    imgurl: {
+        type: String,
+        required: false
     }
 
 }, {versionKey: false});

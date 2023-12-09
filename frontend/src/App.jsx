@@ -7,7 +7,9 @@ import Signin from './pages/Signin';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import Cart from './pages/Cart';
+import Home from './pages/Home';
 import axios from 'axios';
+import Menu from './pages/Menu';
 import AuthContext, { AuthContextProvider } from './context/AuthContent';
 
 axios.defaults.withCredentials = true;
@@ -28,7 +30,8 @@ function AppContent() {
       {/* <div className='container h-screen w-screen'> */}
         <Navbar />
         <Routes>
-          <Route path="/" element={<Users />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
           {loggedIn === false && (
             <>
               {/* <Route path="/" element={<Users />} /> */}
